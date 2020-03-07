@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class GreeterTest {
 
     @Inject
-    Greeter greeter;
+    private Greeter greeter;
 
     @Test
     public void should_create_greeting() {
