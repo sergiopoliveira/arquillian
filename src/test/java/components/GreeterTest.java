@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 @RunWith(Arquillian.class)
 public class GreeterTest {
@@ -29,6 +28,7 @@ public class GreeterTest {
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addClass(Greeter.class)
+                .addClass(PhraseBuilder.class)
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 }
