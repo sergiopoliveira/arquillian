@@ -15,6 +15,9 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
 import java.util.*;
 
@@ -95,6 +98,28 @@ public class GamePersistenceTest {
 
         // then
         System.out.println("Found " + games.size() + " games (using JPQL):");
+        assertContainsAllGames(games);
+    }
+
+    @Test
+    public void shouldFindAllGamesUsingCriteriaApi() throws Exception {
+        // given
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Game> criteria = builder.createQuery(Game.class);
+
+        Root<Game> game = criteria.from(Game.class);
+        criteria.select(game);
+        // TIP: If you don't want to use the JPA 2 Metamodel,
+        // you can change the get() method call to get("id")
+        criteria.orderBy(builder.asc(game.get(Game_.id)));
+        // No WHERE clause, which implies select all
+
+        // when
+        System.out.println("Selecting (using Criteria)...");
+        List<Game> games = em.createQuery(criteria).getResultList();
+
+        // then
+        System.out.println("Found " + games.size() + " games (using Criteria):");
         assertContainsAllGames(games);
     }
 
