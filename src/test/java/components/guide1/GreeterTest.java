@@ -1,4 +1,4 @@
-package components;
+package components.guide1;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;

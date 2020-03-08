@@ -1,4 +1,4 @@
-package components;
+package components.guide1;
 
 import javax.annotation.PostConstruct;
 import java.text.MessageFormat;
